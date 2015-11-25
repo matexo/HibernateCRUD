@@ -18,7 +18,7 @@ public class Person {
     private String surname;
     private String adress;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="id")
     @Cascade(CascadeType.ALL)
     private List<Product> list;
@@ -72,5 +72,24 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
+    }
+
+    @Override
+        public boolean equals( Object other)
+    {
+        if(other == null) return false;
+        if(other == this) return true;
+        if(!(other instanceof Person)) return false;
+        Person person = (Person) other;
+        if( person.getSurname().equals(this.surname)
+          && person.getName().equals(this.name)
+          && person.getAdress().equals(this.adress))
+        {
+            if(person.getList() == null && this.list == null) return true;
+            else if(person.getList() == null || this.list == null) return false;
+            else if(person.getList().equals(this.list)) return true;
+            else return false;
+        }
+            return false;
     }
 }

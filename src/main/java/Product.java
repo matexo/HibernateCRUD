@@ -48,4 +48,17 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+            if(other == null) return false;
+            if(other == this) return true;
+            if(!(other instanceof Product)) return false;
+            Product product = (Product) other;
+            if(product.getName().equals(this.name)
+                    && product.getCategory().equals(this.category)
+                    && product.getPrice() == this.price) return true;
+            return false;
+    }
 }

@@ -37,6 +37,36 @@ public class Hibernate {
 //        person.setList(list);
 //        PersonDAO personDao = new PersonDAO();
 //        personDao.create(person);
+
+        Product p1 = new Product();
+        p1.setName("AA");
+        p1.setCategory("AA");
+        p1.setPrice(10);
+
+        Product p2 = new Product();
+        p2.setName("AA");
+        p2.setCategory("AA");
+        p2.setPrice(10);
+
+
+        List<Product> list = new ArrayList<Product>();
+        list.add(p1);
+        List<Product> list1 = new ArrayList<Product>();
+        list1.add(p2);
+        list1.add(p2);
+
+
+        Person p = new Person();
+        p.setName("A");
+        p.setSurname("B");
+        p.setAdress("C");
+        p.setList(list);
+        Person pp = new Person();
+        pp.setName("A");
+        pp.setSurname("B");
+        pp.setAdress("C");
+        pp.setList(list1);
+        System.out.println(p.equals(pp));
     }
 
 }

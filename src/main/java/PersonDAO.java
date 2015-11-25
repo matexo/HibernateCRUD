@@ -1,3 +1,4 @@
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,7 +29,7 @@ public class PersonDAO implements CRUDInterface<Person>{
             session.save( item );
             transaction.commit();
         }
-        catch (Exception e) {
+        catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -45,9 +46,10 @@ public class PersonDAO implements CRUDInterface<Person>{
         try {
             transaction = session.beginTransaction();
             person = (Person) session.get(Person.class , id);
+            if(person == null) throw new NullPointerException();
             transaction.commit();
         }
-        catch (Exception e) {
+        catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -63,11 +65,14 @@ public class PersonDAO implements CRUDInterface<Person>{
         try {
             transaction = session.beginTransaction();
             Person person = (Person) session.get(Person.class , id);
+            if(person == null) throw new NullPointerException();
             person.setName(item.getName());
             person.setSurname(item.getSurname());
+            person.setAdress(item.getAdress());
+            //person.setList(item.getList());
             transaction.commit();
         }
-        catch (Exception e) {
+        catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -85,7 +90,7 @@ public class PersonDAO implements CRUDInterface<Person>{
             session.delete(person);
             transaction.commit();
         }
-        catch (Exception e) {
+        catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();
             e.printStackTrace();
         } finally {
